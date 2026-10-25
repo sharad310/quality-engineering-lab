@@ -1,0 +1,40 @@
+{
+  "name": "quality-engineering-lab",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=24.14.0 <25"
+  },
+  "scripts": {
+    "dev": "concurrently -k -n api,web \"npm:dev:backend\" \"npm:dev:frontend\"",
+    "dev:frontend": "vite --config frontend/vite.config.ts",
+    "dev:backend": "tsx watch --env-file-if-exists=.env backend/src/server.ts",
+    "build": "npm run build:frontend && npm run build:backend",
+    "build:frontend": "vite build --config frontend/vite.config.ts",
+    "build:backend": "tsc -p backend/tsconfig.json",
+    "typecheck": "tsc -p frontend/tsconfig.json && tsc -p backend/tsconfig.json --noEmit && tsc -p tests/tsconfig.json",
+    "start": "node --env-file-if-exists=.env backend/dist/server.js",
+    "preview": "vite preview --config frontend/vite.config.ts",
+    "test": "playwright test",
+    "test:ui": "playwright test --project=ui",
+    "test:api": "playwright test --project=api"
+  },
+  "dependencies": {
+    "express": "5.3.0",
+    "react": "19.3.1",
+    "react-dom": "19.3.1"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.64.1",
+    "@types/express": "5.0.6",
+    "@types/node": "24.19.2",
+    "@types/react": "19.3.0",
+    "@types/react-dom": "19.3.0",
+    "@vitejs/plugin-react": "6.1.2",
+    "concurrently": "10.0.6",
+    "tsx": "4.23.15",
+    "typescript": "7.0.2",
+    "vite": "8.3.5"
+  }
+}
